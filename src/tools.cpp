@@ -69,16 +69,19 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   	float vx = x_state(2);
 	float vy = x_state(3);
 	
+	float c1 = px*px + py*py;
+  	float c2 = sqrt(c1);
+	float c3 = (c1*c2);
+	
+	
 	//check division by zero
-  	if (fabs(px*px + py*py) < 0.0001)
+  	if (fabs(c1) < 0.0001)
 	{
       std::cout << "Division by zero error" << std::endl;
       return Hj;
 	}
 	
-	float c1 = px*px + py*py;
-  	float c2 = sqrt(px*px + py*py);
-	float c3 = (c1*c2);
+
 	
 	//Jacobian matrix
   	Hj << (px / c2), (py / c2), 0, 0,
